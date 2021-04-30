@@ -18,21 +18,21 @@ variable "environment" {
 //  default     = "~/.aws/credentials"
 //}
 //
-//variable "public_key_name" {
-//  description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
-//  default     = "linux"
-//}
-//
-//variable "public_key_path" {
-//  description = "Path to the public key to be loaded into the helk authorized_keys file"
-//  type        = string
-//  default     = "~/.ssh/linux.pub"
-//}
-//variable "private_key_path" {
-//  description = "Path to the private key to use to authenticate to helk."
-//  type        = string
-//  default     = "~/.ssh/linux"
-//}
+variable "public_key_name" {
+  description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
+  default     = "linux"
+}
+
+variable "public_key_path" {
+  description = "Path to the public key to be loaded into the helk authorized_keys file"
+  type        = string
+  default     = "~/.ssh/linux.pub"
+}
+variable "private_key_path" {
+  description = "Path to the private key to use to authenticate to helk."
+  type        = string
+  default     = "~/.ssh/linux"
+}
 
 variable "ip_whitelist" {
   description = "A list of CIDRs that will be allowed to access the EC2 instances"

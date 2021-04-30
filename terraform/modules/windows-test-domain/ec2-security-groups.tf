@@ -81,6 +81,14 @@ resource "aws_security_group" "windows" {
     cidr_blocks = var.ip_whitelist
   }
 
+  # TLS
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.ip_whitelist
+  }
+
 
   # private subnet
   ingress {

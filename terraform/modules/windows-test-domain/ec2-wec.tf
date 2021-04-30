@@ -15,15 +15,20 @@ resource "aws_instance" "wec" {
   vpc_security_group_ids = [aws_security_group.windows.id]
   private_ip             = "172.18.39.102"
 
+  key_name               = aws_key_pair.auth.key_name
+  get_password_data      = true
 
-    provisioner "remote-exec" {
-       connection {
+  user_data = local.user_data
+
+  provisioner "remote-exec" {
+    connection {
       host        = coalesce(self.public_ip, self.private_ip)
       type        = "winrm"
       user        = "Administrator"
-      password    = aws_ssm_parameter.windows_admin_password.value
-      insecure    = "true"
-      port        = 5985
+      password    = rsadecrypt(self.password_data,file(var.private_key_path))
+      https       = true
+      insecure    = true
+      port        = 5986
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
