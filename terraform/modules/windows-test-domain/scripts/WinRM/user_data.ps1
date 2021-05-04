@@ -1,3 +1,4 @@
+Set-Variable -Name "ProgressPreference" -Value "SilentlyContinue" -Scope global
 # Enable WinRM
 Write-Output "Disabling WinRM over HTTP..."
 Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
@@ -48,9 +49,49 @@ Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' 
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 
+# Instal NuGet
+Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force
+
 # Install and Enable GIT
-Get-ExecutionPolicy
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
-Install-Module posh-git -Force
-Import-Module posh-git
-Add-PoshGitToProfile -AllHosts
+$GitInfContent = @"
+[Setup]
+Lang=default
+Dir=C:\Program Files\Git
+Group=Git
+NoIcons=0
+SetupType=default
+Components=ext,ext\shellhere,ext\guihere,gitlfs,assoc,autoupdate
+Tasks=
+EditorOption=VIM
+CustomEditorPath=
+PathOption=Cmd
+SSHOption=OpenSSH
+TortoiseOption=false
+CURLOption=WinSSL
+CRLFOption=LFOnly
+BashTerminalOption=ConHost
+PerformanceTweaksFSCache=Enabled
+UseCredentialManager=Enabled
+EnableSymlinks=Disabled
+EnableBuiltinInteractiveAdd=Disabled
+"@
+
+New-Item "$Tempdir\git.inf"
+Set-Content "$Tempdir\git.inf" $GitInfContent
+
+# get latest download url for git-for-windows 64-bit exe
+$git_url = "https://api.github.com/repos/git-for-windows/git/releases/latest"
+# Set TLS version to 1.2
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$asset = Invoke-RestMethod -Method Get -Uri $git_url | % assets | where name -like "*64-bit.exe"
+# download installer
+$installer = "$env:temp\$($asset.name)"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $installer
+# run installer
+$git_install_inf = "$Tempdir\git.inf"
+$install_args = "/SP- /VERYSILENT /SUPPRESSMSGBOXES /NOCANCEL /NORESTART /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /LOADINF=""$git_install_inf"""
+Start-Process -FilePath $installer -ArgumentList $install_args -Wait
+
+$env:PATH = $env:PATH += ";C:\progra~1\Git\bin"
+[System.Environment]::SetEnvironmentVariable("Path", $env:PATH, [System.EnvironmentVariableTarget]::Machine)
