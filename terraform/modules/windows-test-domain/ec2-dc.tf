@@ -8,7 +8,7 @@ resource "aws_instance" "dc" {
   ami = data.aws_ami.windows_server_2016_base.image_id
 
   tags = {
-    Name = "HFDC1.shire.com"
+    Name = "HFDC1.${var.domain_name}"
   }
 
   subnet_id              = aws_subnet.default.id
