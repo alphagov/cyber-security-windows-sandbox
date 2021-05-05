@@ -10,7 +10,7 @@ These AMI's already has been domain joined prior to this process
 //  ami = coalesce(data.aws_ami.windows_10.image_id)
 //
 //  tags = {
-//    Name = "ACCT001.shire.com"
+//    Name = "ACCT001.${var.domain_name}"
 //  }
 //
 //  subnet_id              = aws_subnet.default.id
@@ -55,7 +55,7 @@ These AMI's already has been domain joined prior to this process
 //  ami = coalesce(data.aws_ami.windows_10.image_id)
 //
 //  tags = {
-//    Name = "HR001.shire.com"
+//    Name = "HR001.${var.domain_name}"
 //  }
 //
 //  subnet_id              = aws_subnet.default.id
@@ -98,7 +98,7 @@ These AMI's already has been domain joined prior to this process
 //  ami = coalesce(data.aws_ami.windows_10.image_id)
 //
 //  tags = {
-//    Name = "IT001.shire.com"
+//    Name = "IT001.${var.domain_name}"
 //  }
 //
 //  subnet_id              = aws_subnet.default.id

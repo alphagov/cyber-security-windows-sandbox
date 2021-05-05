@@ -8,7 +8,7 @@ resource "aws_instance" "wec" {
   ami = data.aws_ami.windows_server_2016_base.image_id
 
   tags = {
-    Name = "WECServer.shire.com"
+    Name = "WECServer.${var.domain_name}"
   }
 
   subnet_id              = aws_subnet.default.id

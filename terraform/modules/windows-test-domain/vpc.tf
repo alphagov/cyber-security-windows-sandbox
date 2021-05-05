@@ -26,7 +26,7 @@ resource "aws_subnet" "default" {
 
 
 resource "aws_vpc_dhcp_options" "default" {
-  domain_name          = "shire.com"
+  domain_name          = var.domain_name
   domain_name_servers  = concat([aws_instance.dc.private_ip], var.external_dns_servers)
   netbios_name_servers = [aws_instance.dc.private_ip]
  }
