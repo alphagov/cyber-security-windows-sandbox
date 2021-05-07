@@ -61,6 +61,9 @@ Try {
 }
 Add-Content $profile $profile_append_content
 
+# Apply profile in current shell
+. $profile
+
 # Enable WinRM
 Write-Output "Disabling WinRM over HTTP..."
 Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
@@ -110,3 +113,9 @@ Start-Service WinRM
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+
+# Clone repos for bootstrap scripts
+$branch="add-tar-to-wec-instance"
+git clone  --single-branch --branch $branch https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox
+git clone https://github.com/OTRF/Set-AuditRule.git C:\\Set-AuditRule
+
