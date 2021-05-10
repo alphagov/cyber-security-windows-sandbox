@@ -15,8 +15,11 @@ locals {
   user_data_ps1    = file("${path.module}/scripts/WinRM/user_data.ps1")
   user_data        = <<END
 <powershell>
+${local.user_data_ps1}
+
 # add env vars
 $profile_set_env_vars = @"
+# setting local environment variables
 %{ for var_name, value in local.env_variables }
 `$env:${var_name} = `"${value}`"
 %{ endfor }
@@ -32,7 +35,6 @@ Try {
 }
 Add-Content $profile $profile_set_env_vars
 
-${local.user_data_ps1}
 </powershell>
 END
 }
