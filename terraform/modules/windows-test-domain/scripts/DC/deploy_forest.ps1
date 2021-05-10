@@ -37,7 +37,7 @@ else
     -CreateDnsDelegation:$false `
     -DatabasePath "C:\Windows\NTDS" `
     -DomainMode "WinThreshold" `
-    -DomainName "shire.com" `
+    -DomainName $env:domain `
     -DomainNetbiosName "SHIRE" `
     -ForestMode "WinThreshold" `
     -InstallDns:$true `

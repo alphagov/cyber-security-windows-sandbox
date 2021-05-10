@@ -1,1 +1,1 @@
-﻿Add-LocalGroupMember -Group "Remote Desktop Users" -Member "shire.com\nmartha"
+﻿Add-LocalGroupMember -Group "Remote Desktop Users" -Member "$env:domain\nmartha"
