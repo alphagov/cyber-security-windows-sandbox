@@ -15,6 +15,8 @@ resource "aws_instance" "wec" {
   vpc_security_group_ids = [aws_security_group.windows.id]
   private_ip             = "172.18.39.102"
 
+  iam_instance_profile   = aws_iam_instance_profile.wec_instance_profile.name
+
   key_name               = aws_key_pair.auth.key_name
   get_password_data      = true
 

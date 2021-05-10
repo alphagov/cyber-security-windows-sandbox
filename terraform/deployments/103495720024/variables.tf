@@ -25,3 +25,15 @@ variable "private_key_path" {
   type        = string
   default     = "~/.ssh/test-1"
 }
+
+variable "splunk_config_bucket" {
+  description = "Name of the target bucket for retriving config."
+  type        = string
+  default     = "cdio-cyber-security-splunk-apps-publishing-test"
+}
+
+variable "splunk_forwarder_name" {
+  description = "Name used to derive a role ARN and path prefix for S3."
+  type        = string
+  default     = "co-cdio-technology-official-it-platform-wec"
+}
