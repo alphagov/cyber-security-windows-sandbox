@@ -9,6 +9,7 @@ locals {
 
   env_variables   = {
     "environment": var.environment
+    "domain": var.domain_name
   }
 
 
