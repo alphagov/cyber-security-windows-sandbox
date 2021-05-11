@@ -112,9 +112,8 @@ $valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $splunk_inst
 Write-Host "Hash is valid: $valid"
 If ($valid -eq 1) {
   Write-Host "Hash matches"
-$DataStamp = get-date -Format yyyyMMddTHHmmss
-  $logFile
-} = '{0}-{1}.log' -f $splunk_installer,$DataStamp
+  $DataStamp = get-date -Format yyyyMMddTHHmmss
+  $logFile = '{0}-{1}.log' -f $splunk_installer,$DataStamp
   $MSIArguments = @(
       "/i"
       ('"{0}"' -f $splunk_installer)
