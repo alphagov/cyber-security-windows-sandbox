@@ -74,6 +74,7 @@ Try {
 # Download S3 path for forwarder to local directory
 
 Try {
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   Read-S3Object -Credential $ROLE_SESSION -KeyPrefix packages -BucketName $BUCKET_NAME -Folder $PSScriptRoot/packages -ErrorAction Stop
 } Catch {
   Write-Host "Failed to read S3 bucket"
@@ -125,6 +126,6 @@ If ($valid -eq 1) {
   Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
 }
 
-Write-Host "Cleaning up"
-Remove-Item -Recurse -Force $PSScriptRoot/packages
+#Write-Host "Cleaning up"
+#Remove-Item -Recurse -Force $PSScriptRoot/packages
 
