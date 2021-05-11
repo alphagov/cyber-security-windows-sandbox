@@ -113,5 +113,7 @@ Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' 
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 
-git clone https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox
+# Clone repos for bootstrap scripts
+$branch="exec-roles"
+git clone  --single-branch --branch $branch https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox
 git clone https://github.com/OTRF/Set-AuditRule.git C:\\Set-AuditRule

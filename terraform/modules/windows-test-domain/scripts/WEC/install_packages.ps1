@@ -80,7 +80,7 @@ Try {
   exit 1
 }
 
-$valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file wintar.zip -creds $ROLE_SESSION)
+$valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file "wintar.zip" -creds $ROLE_SESSION)
 Write-Host "Hash is valid: $valid"
 
 If ($valid -eq 1) {
@@ -92,8 +92,8 @@ If ($valid -eq 1) {
 
   # add tar to $PATH
   $profile_append_content = @"
-  `$env:PATH += `";C:\progra~1\WinTar;`"
-  "@
+`$env:PATH += `";C:\progra~1\WinTar;`"
+"@
 
   Try {
     If (Test-Path $profile) {
