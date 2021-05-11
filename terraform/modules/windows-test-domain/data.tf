@@ -12,6 +12,10 @@ data "aws_ami" "windows_server_2016_base" {
   }
 }
 
+data "aws_iam_role" "wec_exec_role" {
+  name = "WECExecRole"
+}
+
 //data "aws_ami" "windows_10" {
 //  owners = ["amazon"]
 //  filter {

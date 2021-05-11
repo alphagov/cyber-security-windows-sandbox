@@ -4,7 +4,7 @@ locals {
     Environment   = var.environment
     SvcOwner      = "Cyber"
     DeployedUsing = "Terraform"
-    SvcCodeURL    = "https://github.com/alphagov/cyber-security-terraform"
+    SvcCodeURL    = "https://github.com/alphagov/cyber-security-windows-sandbox"
   }
 
   env_variables = {

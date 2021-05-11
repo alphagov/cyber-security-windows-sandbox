@@ -81,8 +81,3 @@ resource "aws_iam_role_policy_attachment" "wec_exec_role" {
   policy_arn = aws_iam_policy.wec_exec_role_policy.arn
 }
 
-resource "aws_iam_instance_profile" "wec_instance_profile" {
-  name = "wec-developer_box_instance_profile"
-  role = aws_iam_role.wec_exec_role.name
-}
-

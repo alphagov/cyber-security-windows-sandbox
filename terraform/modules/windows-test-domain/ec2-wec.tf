@@ -45,3 +45,8 @@ resource "aws_instance" "wec" {
     delete_on_termination = true
   }
 }
+
+resource "aws_iam_instance_profile" "wec_instance_profile" {
+  name = "wec-developer_box_instance_profile"
+  role = data.aws_iam_role.wec_exec_role.name
+}
