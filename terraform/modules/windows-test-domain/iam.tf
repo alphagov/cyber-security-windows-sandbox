@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "wec_exec_role_policy" {
     ]
 
     resources = [
-
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/SplunkForwarderRole*"
     ]
   }
 }
