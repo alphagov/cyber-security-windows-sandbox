@@ -1,4 +1,15 @@
-$files = Get-ChildItem -Path "C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC" -Recurse -Filter *.xml
-foreach ($f in $files){
-    Get-Content $f.FullName -replace '{{domain}}', '$env:domain' | Set-Content $f.FullName
+$matchString = '{{domain}}'
+$replaceString = $env:domain
+$files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -filter *.xml -Recurse
+foreach ($file in $files) {
+    $matchFound = $false
+    $output = switch -regex -file $file.fullname {
+        $matchString { $_ -replace $matchString,$replaceString
+                       $matchFound = $true
+        }
+        default { $_ }
+    }
+    if ($matchFound) {
+        $output | Set-Content $file.fullname
+    }
 }
