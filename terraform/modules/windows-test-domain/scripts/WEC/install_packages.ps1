@@ -82,6 +82,7 @@ Try {
 
 $valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file wintar.zip -creds $ROLE_SESSION)
 Write-Host "Hash is valid: $valid"
+
 If ($valid -eq 1) {
   Write-Host "Hash matches"
 

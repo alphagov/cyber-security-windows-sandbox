@@ -61,6 +61,8 @@ Try {
 }
 Add-Content $profile $profile_append_content
 
+. $profile
+
 # Enable WinRM
 Write-Output "Disabling WinRM over HTTP..."
 Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
