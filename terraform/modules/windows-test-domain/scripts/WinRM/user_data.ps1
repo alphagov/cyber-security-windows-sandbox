@@ -110,3 +110,6 @@ Start-Service WinRM
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+
+git clone https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox
+git clone https://github.com/OTRF/Set-AuditRule.git C:\\Set-AuditRule

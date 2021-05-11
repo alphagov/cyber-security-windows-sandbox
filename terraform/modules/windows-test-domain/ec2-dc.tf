@@ -33,11 +33,8 @@ resource "aws_instance" "dc" {
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
-      "powershell Remove-Item -Force C:\\alphagov-windows-sandbox -Recurse",
-      "powershell git clone https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_system_enableula_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_terminal_server_sacl.ps1",
-      "powershell git clone https://github.com/OTRF/Set-AuditRule.git C:\\Set-AuditRule",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",
       "powershell gpupdate /Force",
       "powershell Restart-Computer -Force",
