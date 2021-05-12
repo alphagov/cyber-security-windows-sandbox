@@ -121,7 +121,6 @@ ForEach ($package in $METADATA_CSV){
     }
     elseif ($file -match "splunk")
     {
-      Write-Host "Hash matches"
       $DataStamp = get-date -Format yyyyMMddTHHmmss
       $LogFile = '{0}-{1}.log' -f $file,$DataStamp
       $MSIArguments = @(
@@ -140,6 +139,6 @@ ForEach ($package in $METADATA_CSV){
   }
 }
 
-#Write-Host "Cleaning up"
-#Remove-Item -Recurse -Force $PSScriptRoot/packages
+Write-Host "Cleaning up"
+Remove-Item -Recurse -Force $PSScriptRoot/packages
 

@@ -5,7 +5,7 @@ variable "environment" {
 }
 
 variable "splunk_config_bucket" {
-  description = "Name of the target bucket for retriving config."
+  description = "Name of the target bucket for retrieving config."
   type        = string
   default     = "cdio-cyber-security-splunk-apps-publishing-test"
 }
