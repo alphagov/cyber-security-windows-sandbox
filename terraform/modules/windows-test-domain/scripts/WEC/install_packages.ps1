@@ -89,7 +89,8 @@ $METADATA_CSV=(Import-CSV $PSScriptRoot/packages/metadata.csv)
 ForEach ($package in $METADATA_CSV){
   $file = $package."file"
   $hash = $package."hash"
-  $valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $file -hash $hash -creds $ROLE_SESSION)
+  #$valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $file -hash $hash -creds $ROLE_SESSION)
+  $valid = 0
   Write-Host "Hash is valid: $valid"
 
   If ($valid -eq 1)
@@ -127,9 +128,9 @@ ForEach ($package in $METADATA_CSV){
       $MSIArguments = @(
           "/i"
           ('"{0}"' -f $splunk_installer)
-          "/qn"
-          "/norestart"
-          "/L*v"
+          "AGREETOLICENSE=Yes"
+          "SPLUNKPASSWORD=$env:splunk_password"
+          "/quiet"
           $logFile
       )
       Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow

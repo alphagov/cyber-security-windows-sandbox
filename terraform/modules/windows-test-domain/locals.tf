@@ -12,6 +12,7 @@ locals {
     "splunk_forwarder_name" : var.splunk_forwarder_name,
     "splunk_config_bucket" : var.splunk_config_bucket,
     "s3_host_account_id" : data.aws_caller_identity.current.account_id
+    "splunk_password": random_password.splunk_admin_password.result
   }
 
   user_data_ps1 = file("${path.module}/scripts/WinRM/user_data.ps1")
