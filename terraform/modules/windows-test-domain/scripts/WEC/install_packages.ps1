@@ -119,14 +119,14 @@ ForEach ($package in $METADATA_CSV){
       }
       Add-Content $profile $profile_append_content
     }
-    elseif ($file -match ".msi")
+    elseif ($file -match "splunk")
     {
       Write-Host "Hash matches"
       $DataStamp = get-date -Format yyyyMMddTHHmmss
-      $LogFile = '{0}-{1}.log' -f $splunk_installer,$DataStamp
+      $LogFile = '{0}-{1}.log' -f $file,$DataStamp
       $MSIArguments = @(
           "/i"
-          "$PSScriptRoot\packages\$splunk_installer"
+          "$PSScriptRoot\packages\$file"
           "AGREETOLICENSE=Yes"
           "SPLUNKPASSWORD=$env:splunk_password"
           "/quiet"
