@@ -1,20 +1,3 @@
-//resource "random_password" "windows_admin_password" {
-//  length           = 24
-//  special          = true
-//  override_special = "_%@"
-//}
-//
-//resource "aws_ssm_parameter" "windows_admin_password" {
-//  name        = "/windows-sandbox/administrator/password"
-//  description = "Password for local windows sys admin user"
-//  type        = "SecureString"
-//  value       = random_password.windows_admin_password.result
-//  overwrite   = false
-//
-//  tags = merge(local.tags, { "Name" : "/windows-sandbox/administrator/password" })
-//
-//}
-
 resource "aws_ssm_parameter" "windows_dc_admin_password" {
   name        = "/windows-sandbox/dc/administrator/password"
   description = "Password for local windows DC Administrator"
@@ -31,4 +14,19 @@ resource "aws_ssm_parameter" "windows_wec_admin_password" {
   value       = rsadecrypt(aws_instance.wec.password_data,file(var.private_key_path))
   overwrite   = true
   tags = merge(local.tags, { "Name" : "/windows-sandbox/administrator/password" })
+}
+
+resource "random_password" "splunk_admin_password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
+}
+
+resource "aws_ssm_parameter" "windows_wec_splunk_password" {
+  name        = "/windows-sandbox/wec/splunk/password"
+  description = "Password for local windows WEC Splunk admin password"
+  type        = "SecureString"
+  value       = random_password.splunk_admin_password.result
+  overwrite   = true
+  tags = merge(local.tags, { "Name" : "/windows-sandbox/wec/splunk/password" })
 }

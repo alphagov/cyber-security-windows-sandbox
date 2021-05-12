@@ -15,6 +15,8 @@ resource "aws_instance" "wec" {
   vpc_security_group_ids = [aws_security_group.windows.id]
   private_ip             = "172.18.39.102"
 
+  iam_instance_profile   = aws_iam_instance_profile.wec_instance_profile.name
+
   key_name               = aws_key_pair.auth.key_name
   get_password_data      = true
 
@@ -32,12 +34,10 @@ resource "aws_instance" "wec" {
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
-      "powershell Remove-Item -Force C:\\alphagov-windows-sandbox -Recurse",
-      "powershell git clone https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WinRM\\templating.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_system_enableula_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_terminal_server_sacl.ps1",
-      "powershell git clone https://github.com/OTRF/Set-AuditRule.git C:\\Set-AuditRule",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\install_packages.ps1",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",
       "powershell Restart-Computer -Force",
     ]
@@ -46,4 +46,9 @@ resource "aws_instance" "wec" {
   root_block_device {
     delete_on_termination = true
   }
+}
+
+resource "aws_iam_instance_profile" "wec_instance_profile" {
+  name = "wec-developer_box_instance_profile"
+  role = data.aws_iam_role.wec_exec_role.name
 }

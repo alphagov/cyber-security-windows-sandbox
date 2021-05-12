@@ -1,6 +1,7 @@
 Set-Variable -Name "ProgressPreference" -Value "SilentlyContinue" -Scope global
 
 # Instal NuGet
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force
 
 # Install and Enable GIT
@@ -61,6 +62,8 @@ Try {
 }
 Add-Content $profile $profile_append_content
 
+. $profile
+
 # Enable WinRM
 Write-Output "Disabling WinRM over HTTP..."
 Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
@@ -110,3 +113,8 @@ Start-Service WinRM
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+
+# Clone repos for bootstrap scripts
+$branch="main"
+git clone  --single-branch --branch $branch https://github.com/alphagov/cyber-security-windows-sandbox.git C:\\alphagov-windows-sandbox
+git clone https://github.com/OTRF/Set-AuditRule.git C:\\Set-AuditRule

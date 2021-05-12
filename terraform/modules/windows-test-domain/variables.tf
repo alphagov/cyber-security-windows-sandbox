@@ -28,6 +28,7 @@ variable "public_key_path" {
   type        = string
   default     = "~/.ssh/linux.pub"
 }
+
 variable "private_key_path" {
   description = "Path to the private key to use to authenticate to helk."
   type        = string
@@ -52,5 +53,14 @@ variable "external_dns_servers" {
   default     = ["8.8.8.8"]
 }
 
+variable "splunk_config_bucket" {
+  description = "Name of the target bucket for retriving config."
+  type        = string
+}
+
+variable "splunk_forwarder_name" {
+  description = "Name used to derive a role ARN and path prefix for S3."
+  type        = string
+}
 # If you are building your own AMIs you will have replace these values below with your own AMIs.
 # This will also have to be changed if you choose to be in another region besides 'us-west-1'
