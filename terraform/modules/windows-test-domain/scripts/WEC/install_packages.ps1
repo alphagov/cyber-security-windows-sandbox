@@ -89,8 +89,7 @@ $METADATA_CSV=(Import-CSV $PSScriptRoot/packages/metadata.csv)
 ForEach ($package in $METADATA_CSV){
   $file = $package."file"
   $hash = $package."hash"
-  #$valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $file -hash $hash -creds $ROLE_SESSION)
-  $valid = 0
+  $valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $file -hash $hash -creds $ROLE_SESSION)
   Write-Host "Hash is valid: $valid"
 
   If ($valid -eq 1)
@@ -101,7 +100,7 @@ ForEach ($package in $METADATA_CSV){
     {
       # Unwrap tar binary
       New-Item -Path "c:\progra~1" -Name "WinTar" -ItemType "directory"
-      Expand-Archive -LiteralPath $PSScriptRoot/packages/WinTar.zip -DestinationPath C: \progra~1\WinTar
+      Expand-Archive -LiteralPath $PSScriptRoot/packages/WinTar.zip -DestinationPath C:\progra~1\WinTar
 
       # add tar to $PATH
       $profile_append_content = "\n`$env:PATH += `";C:\progra~1\WinTar;`"\n"
@@ -124,14 +123,17 @@ ForEach ($package in $METADATA_CSV){
     {
       Write-Host "Hash matches"
       $DataStamp = get-date -Format yyyyMMddTHHmmss
-      $logFile = '{0}-{1}.log' -f $splunk_installer,$DataStamp
+      $LogFile = '{0}-{1}.log' -f $splunk_installer,$DataStamp
       $MSIArguments = @(
           "/i"
-          ('"{0}"' -f $splunk_installer)
+          "$PSScriptRoot\packages\$splunk_installer"
           "AGREETOLICENSE=Yes"
           "SPLUNKPASSWORD=$env:splunk_password"
           "/quiet"
-          $logFile
+          "/passive"
+          "/qn"
+          "/lv"
+          "$PSScriptRoot\packages\$LogFile"
       )
       Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
     }
