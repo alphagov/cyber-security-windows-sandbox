@@ -20,12 +20,18 @@ variable "public_key_path" {
   type        = string
   default     = "~/.ssh/test-1.pub"
 }
+
 variable "private_key_path" {
   description = "Path to the private key to use to authenticate to helk."
   type        = string
   default     = "~/.ssh/test-1"
 }
 
+variable "domain_name" {
+  description = ""
+  type        = string
+  default     = "shire.com"
+}
 variable "splunk_config_bucket" {
   description = "Name of the target bucket for retrieving config."
   type        = string

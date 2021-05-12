@@ -56,7 +56,7 @@ foreach ($User in $ADUsers)
         
         New-ADUser `
             -SamAccountName $Username `
-            -UserPrincipalName "$Username@shire.com" `
+            -UserPrincipalName "$Username@$env:domain" `
             -Name "$firstname $lastname" `
             -GivenName $firstname `
             -Surname $lastname `
@@ -73,6 +73,6 @@ foreach ($User in $ADUsers)
 	    }
          Write-Output "$username has been added to the domain and added to the $identity group"
     }
-setspn -a glamdring/shire.com shire\gandalf
+setspn -a glamdring/$env:domain shire\gandalf
 }
 Import-LOTR

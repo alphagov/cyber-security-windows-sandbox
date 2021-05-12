@@ -1,5 +1,5 @@
-$User = "shire.com\nmartha"
+$User = "$env:domain\nmartha"
 $Password = ConvertTo-SecureString -String "ShiRe012!" -AsPlainText -Force
 $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $Password
 
-Add-Computer -DomainName "shire.com" -OUPath "OU=Workstations,DC=shire,DC=com" -Credential $Credential -Force -Restart
+Add-Computer -DomainName "$env:domain" -OUPath "OU=Workstations,DC=shire,DC=com" -Credential $Credential -Force -Restart

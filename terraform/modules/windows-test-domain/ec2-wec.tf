@@ -8,7 +8,7 @@ resource "aws_instance" "wec" {
   ami = data.aws_ami.windows_server_2016_base.image_id
 
   tags = {
-    Name = "WECServer.shire.com"
+    Name = "WECServer.${var.domain_name}"
   }
 
   subnet_id              = aws_subnet.default.id
@@ -34,6 +34,7 @@ resource "aws_instance" "wec" {
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WinRM\\templating.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_system_enableula_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_terminal_server_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\install_packages.ps1",

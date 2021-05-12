@@ -35,6 +35,12 @@ variable "private_key_path" {
   default     = "~/.ssh/linux"
 }
 
+variable "domain_name" {
+  description = ""
+  type        = string
+  default     = "shire.com"
+}
+
 variable "ip_whitelist" {
   description = "A list of CIDRs that will be allowed to access the EC2 instances"
   type        = list(string)
