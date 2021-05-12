@@ -103,7 +103,7 @@ ForEach ($package in $METADATA_CSV){
       Expand-Archive -LiteralPath $PSScriptRoot/packages/WinTar.zip -DestinationPath C:\progra~1\WinTar
 
       # add tar to $PATH
-      $profile_append_content = "\n`$env:PATH += `";C:\progra~1\WinTar;`"\n"
+      $profile_append_content = "`r`n`$env:PATH += `";C:\progra~1\WinTar;`"`r`n"
 
       Try
       {
