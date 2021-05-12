@@ -21,13 +21,17 @@ function Calculate-LowerCaseFileHash {
 }
 
 function Check-HashIsValid {
-  param([string]$bucket, [string]$path, [string]$file, [Amazon.SecurityToken.Model.Credentials]$creds)
+  param([string]$bucket, [string]$path, [string]$file, [string]$hash, [Amazon.SecurityToken.Model.Credentials]$creds)
   $relpath="$path/$file"
   $abspath="$PSScriptRoot/$relpath"
   $calculated_hash=(Calculate-LowerCaseFileHash -path $abspath)
   $METADATA_OBJECT=(Get-S3ObjectMetadata -Credential $creds -BucketName $bucket -Key $relpath)
   $published_hash=($METADATA_OBJECT.Metadata.Item("x-amz-meta-hash"))
-  If ($published_hash -eq $calculated_hash) {
+
+  # For some reason the S3 metadata hash is not working
+  Write-Host("Hash from S3 metadata: $published_hash = $file")
+
+  If ($hash -eq $calculated_hash) {
     $hash_is_valid = 1
   } Else {
     $hash_is_valid = 0
@@ -81,49 +85,56 @@ Try {
   exit 1
 }
 
-$valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file "wintar.zip" -creds $ROLE_SESSION)
-Write-Host "Hash is valid: $valid"
+$METADATA_CSV=(Import-CSV $PSScriptRoot/packages/metadata.csv)
+ForEach ($package in $METADATA_CSV){
+  $file = $package."file"
+  $hash = $package."hash"
+  $valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $file -creds $ROLE_SESSION)
+  Write-Host "Hash is valid: $valid"
 
-If ($valid -eq 1) {
-  Write-Host "Hash matches"
+  If ($valid -eq 1)
+  {
+    Write-Host "Hash matches"
 
-  # Unwrap tar binary
-  New-Item -Path "c:\progra~1" -Name "WinTar" -ItemType "directory"
-  Expand-Archive -LiteralPath $PSScriptRoot/packages/WinTar.zip -DestinationPath C:\progra~1\WinTar
+    If ($file -eq "wintar.zip")
+    {
+      # Unwrap tar binary
+      New-Item -Path "c:\progra~1" -Name "WinTar" -ItemType "directory"
+      Expand-Archive -LiteralPath $PSScriptRoot/packages/WinTar.zip -DestinationPath C: \progra~1\WinTar
 
-  # add tar to $PATH
-  $profile_append_content = @"
-`$env:PATH += `";C:\progra~1\WinTar;`"
-"@
+      # add tar to $PATH
+      $profile_append_content = "\n`$env:PATH += `";C:\progra~1\WinTar;`"\n"
 
-  Try {
-    If (Test-Path $profile) {
-      Write-Host "Profile already exists"
+      Try
+      {
+        If (Test-Path $profile)
+        {
+          Write-Host "Profile already exists"
+        }
+      }
+      Catch
+      {
+        New-Item $profile
+        Write-Host "Creating empty default profile"
+      }
+      Add-Content $profile $profile_append_content
     }
-  } Catch {
-    New-Item $profile
-    Write-Host "Creating empty default profile"
+    elseif ($file -match ".msi")
+    {
+      Write-Host "Hash matches"
+      $DataStamp = get-date -Format yyyyMMddTHHmmss
+      $logFile = '{0}-{1}.log' -f $splunk_installer,$DataStamp
+      $MSIArguments = @(
+          "/i"
+          ('"{0}"' -f $splunk_installer)
+          "/qn"
+          "/norestart"
+          "/L*v"
+          $logFile
+      )
+      Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+    }
   }
-  Add-Content $profile $profile_append_content
-}
-
-# Install splunk forwarder
-$splunk_installer = "splunk-8.1.2-545206cc9f70-x64-release.msi"
-$valid=(Check-HashIsValid -bucket $BUCKET_NAME -path packages -file $splunk_installer -creds $ROLE_SESSION)
-Write-Host "Hash is valid: $valid"
-If ($valid -eq 1) {
-  Write-Host "Hash matches"
-  $DataStamp = get-date -Format yyyyMMddTHHmmss
-  $logFile = '{0}-{1}.log' -f $splunk_installer,$DataStamp
-  $MSIArguments = @(
-      "/i"
-      ('"{0}"' -f $splunk_installer)
-      "/qn"
-      "/norestart"
-      "/L*v"
-      $logFile
-  )
-  Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
 }
 
 #Write-Host "Cleaning up"
