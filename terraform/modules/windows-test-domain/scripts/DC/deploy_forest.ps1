@@ -36,18 +36,18 @@ else
     Write-Host "Install ADSSForest"
     Install-ADDSForest `
     -SafeModeAdministratorPassword $(ConvertTo-SecureString $env:DOMAIN_PASSWORD -AsPlainText -Force) `
-    -CreateDnsDelegation:$false `
+    -CreateDnsDelegation `
     -DatabasePath "C:\Windows\NTDS" `
     -DomainMode "WinThreshold" `
     -DomainName "$env:domain" `
     -DomainNetbiosName "SHIRE" `
     -ForestMode "WinThreshold" `
-    -InstallDns $true `
+    -InstallDns `
     -LogPath "C:\Windows\NTDS" `
     -NoRebootOnCompletion:$true `
     -SysvolPath "C:\Windows\SYSVOL" `
-    -SkipPreChecks $true `
-    -Force:$true
+    -SkipPreChecks `
+    -Force
 
     Write-Host "DC setup complete"
 } 
