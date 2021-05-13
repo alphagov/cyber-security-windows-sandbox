@@ -41,7 +41,7 @@ else
     -DomainName "$env:domain" `
     -DomainNetbiosName "SHIRE" `
     -ForestMode "WinThreshold" `
-    -InstallDns:$false `
+    -InstallDns:$true `
     -LogPath "C:\Windows\NTDS" `
     -NoRebootOnCompletion:$true `
     -SysvolPath "C:\Windows\SYSVOL" `
