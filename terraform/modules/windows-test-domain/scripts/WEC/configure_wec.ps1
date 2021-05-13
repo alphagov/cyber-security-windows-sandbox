@@ -72,5 +72,3 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
 
 # Configure Event Collector
 wecutil qc -quiet
-
-Restart-Computer -Force
