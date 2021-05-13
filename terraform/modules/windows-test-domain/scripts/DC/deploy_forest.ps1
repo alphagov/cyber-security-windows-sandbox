@@ -33,7 +33,6 @@ else
     # Creating New Forest
     Import-Module ADDSDeployment
     Install-ADDSForest `
-    -SafeModeAdministratorPassword $(ConvertTo-SecureString 'S@lv@m3!M0d3' -AsPlainText -Force) `
     -CreateDnsDelegation:$false `
     -DatabasePath "C:\Windows\NTDS" `
     -DomainMode "WinThreshold" `

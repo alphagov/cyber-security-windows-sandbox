@@ -37,6 +37,7 @@ resource "aws_instance" "dc" {
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\registry_system_enableula_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\registry_terminal_server_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\rename_dc_computer.ps1",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\deploy_forest.ps1",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",
       "powershell gpupdate /Force",
       "powershell Restart-Computer -Force",
