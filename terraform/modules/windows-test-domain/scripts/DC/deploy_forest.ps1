@@ -12,17 +12,17 @@ if (($host_info).partofdomain -eq $true)
     $hostname = ($host_info).Name
     $domain_name = ($host_info).Domain
 
-    write-host -fore red "$hostname is already part of the $domain_name domain"
-    write-host -fore red "$hostname cannot be used to create a new forest"
+    Write-Host -Fore red "$hostname is already part of the $domain_name domain"
+    Write-Host -Fore red "$hostname cannot be used to create a new forest"
 } 
 else 
 {
-    write-host -fore green "$hostname is not part of a domain yet.."
-    write-host -fore green "Deploying a new forest and promoting $hostname to Domain Controller.."
+    Write-Host -Fore green "$hostname is not part of a domain yet.."
+    Write-Host -Fore green "Deploying a new forest and promoting $hostname to Domain Controller.."
     
     # Windows Features Installation
     Get-Command -module ServerManager
-    write-host -fore green "Installing Windows features:"
+    Write-Host -Fore green "Installing Windows features:"
     $windows_features = @("AD-Domain-Services", "DNS")
     $windows_features.ForEach({
         write-host -fore yello "Installing $_ Windows feature.."
@@ -31,12 +31,14 @@ else
     
     # Microsoft Windows Server 2016 Standard Evaluation
     # Creating New Forest
+    Write-Host "Installing ADDSDeployment module"
     Import-Module ADDSDeployment
+    Write-Host "Install ADSSForest"
     Install-ADDSForest `
     -CreateDnsDelegation:$false `
     -DatabasePath "C:\Windows\NTDS" `
     -DomainMode "WinThreshold" `
-    -DomainName $env:domain `
+    -DomainName "$env:domain" `
     -DomainNetbiosName "SHIRE" `
     -ForestMode "WinThreshold" `
     -InstallDns:$false `
@@ -45,4 +47,5 @@ else
     -SysvolPath "C:\Windows\SYSVOL" `
     -Force:$true
 
+    Write-Host "DC setup complete"
 } 
