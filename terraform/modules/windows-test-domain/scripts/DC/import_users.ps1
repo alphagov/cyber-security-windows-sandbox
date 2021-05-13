@@ -12,7 +12,7 @@ Import-Module activedirectory
   
 #Update the path to where the .csv file is stored. 
 
-$ADUsers = Import-csv C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\DC\domain_users.csv
+$ADUsers = Import-csv C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\domain_users.csv
 
 foreach ($User in $ADUsers)
 
