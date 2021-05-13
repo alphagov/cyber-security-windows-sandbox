@@ -8,12 +8,12 @@ locals {
   }
 
   env_variables = {
-    "environment" : var.environment,
-    "splunk_forwarder_name" : var.splunk_forwarder_name,
-    "splunk_config_bucket" : var.splunk_config_bucket,
-    "s3_host_account_id" : data.aws_caller_identity.current.account_id,
-    "splunk_password": random_password.splunk_admin_password.result,
-    "domain": var.domain_name
+    "ENVIRONMENT" : var.environment,
+    "FORWARDER" : var.splunk_forwarder_name,
+    "BUCKET_NAME" : var.splunk_config_bucket,
+    "AWS_ACCOUNT" : data.aws_caller_identity.current.account_id,
+    "SPLUNK_PASSWORD": random_password.splunk_admin_password.result,
+    "DOMAIN": var.domain_name
   }
 
   user_data_ps1 = file("${path.module}/scripts/WinRM/user_data.ps1")
