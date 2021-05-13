@@ -1,16 +1,7 @@
 #Jonathan Johnson
 #github:https://github.com/jsecurity101
 
-Write-Output "
- _____                           _          _     _____ ___________ 
-|_   _|                         | |        | |   |  _  |_   _| ___ \
-  | | _ __ ___  _ __   ___  _ __| |_ ______| |   | | | | | | | |_/ /
-  | || '_ ` _ \| '_ \ / _ \| '__| __|______| |   | | | | | | |    / 
- _| || | | | | | |_) | (_) | |  | |_       | |___\ \_/ / | | | |\ \ 
- \___/_| |_| |_| .__/ \___/|_|   \__|      \_____/\___/  \_/ \_| \_|
-               | |                                                  
-               |_|                                                                                               
-"  
+Write-Host "Import domain users"
 
 Function Import-Users()
 
@@ -21,7 +12,7 @@ Import-Module activedirectory
   
 #Update the path to where the .csv file is stored. 
 
-$ADUsers = Import-csv C:\mordor\environment\shire\aws\scripts\DC\domain_users.csv
+$ADUsers = Import-csv C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\DC\domain_users.csv
 
 foreach ($User in $ADUsers)
 
