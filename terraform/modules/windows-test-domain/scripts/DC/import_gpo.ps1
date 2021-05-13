@@ -9,7 +9,7 @@ Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Configuring auditing policy GPOs."
 $GPOName = 'Default Domain Controllers Policy'
 $OU = "ou=Domain Controllers,dc=shire,dc=com"
 Write-Host "Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\default_domain_controllers_policy" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\default_domain_controllers_policy" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -28,7 +28,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\adjusting_time_rights" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\adjusting_time_rights" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU1 -Properties name,distinguishedName, gPLink, gPOptions
@@ -50,7 +50,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\disable_lock_screen" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\disable_lock_screen" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -71,7 +71,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\disable_open_file_security_warning" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\disable_open_file_security_warning" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -93,7 +93,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\disable_sleep_mode" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\disable_sleep_mode" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -115,7 +115,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\disable_windows_defender" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\disable_windows_defender" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -136,7 +136,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\disable_windows_defender_firewall" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\disable_windows_defender_firewall" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -157,7 +157,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\disable_windows_update" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\disable_windows_update" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -178,7 +178,7 @@ $GPOName = 'Full Domain Auditing Workstations'
 $OU = "ou=Workstations,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\full_domain_auditing_workstations" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\full_domain_auditing_workstations" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -199,7 +199,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\inactivity_limit" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\inactivity_limit" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -220,7 +220,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\powershell_logging" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\powershell_logging" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -241,7 +241,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\restrict_sam_remove_calls" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\restrict_sam_remove_calls" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -263,7 +263,7 @@ $GPOName = 'Windows Event Forwarding'
 $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\windows_event_forwarding" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\windows_event_forwarding" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -285,7 +285,7 @@ $OU = "ou=Workstations,dc=shire,dc=com"
 $OU1 = "ou=Domain Controllers,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\windows_script_host" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\windows_script_host" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
@@ -305,7 +305,7 @@ $GPOName = 'Workstation Administrators'
 $OU = "ou=Workstations,dc=shire,dc=com"
 $OU2 = "ou=Servers,dc=shire,dc=com"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Importing $GPOName..."
-Import-GPO -BackupGpoName $GPOName -Path "C:\mordor\environment\shire\aws\scripts\DC\GPOBackup\workstation_administrators" -TargetName $GPOName -CreateIfNeeded
+Import-GPO -BackupGpoName $GPOName -Path "C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\DC\GPOBackup\workstation_administrators" -TargetName $GPOName -CreateIfNeeded
 $gpLinks = $null
 $gPLinks = Get-ADOrganizationalUnit -Identity $OU -Properties name,distinguishedName, gPLink, gPOptions
 $GPO = Get-GPO -Name $GPOName
