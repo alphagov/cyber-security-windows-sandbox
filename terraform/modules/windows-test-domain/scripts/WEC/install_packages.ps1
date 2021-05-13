@@ -141,9 +141,16 @@ ForEach ($package in $METADATA_CSV){
   }
 }
 
+Try {
+  If (Test-Path $PSScriptRoot\scripts\get-and-update.ps1) {
+    Write-Host "Installing forwarder config"
+    Invoke-Expression -Command "powershell $PSScriptRoot\scripts\get-and-update.ps1"
+  }
+} Catch {
+  Write-Host "Splunk forwarder setup script not available"
+}
+
 Write-Host "Cleaning up"
 Remove-Item -Recurse -Force $PSScriptRoot/packages
-
-Set the env var name the get-and-update script expects
-$PSScriptRoot\scripts\get-and-update.ps1
+# Remove-Item -Recurse -Force $PSScriptRoot/scripts
 
