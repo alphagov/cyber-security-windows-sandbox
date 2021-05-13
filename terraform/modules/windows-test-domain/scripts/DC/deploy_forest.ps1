@@ -35,6 +35,7 @@ else
     Import-Module ADDSDeployment
     Write-Host "Install ADSSForest"
     Install-ADDSForest `
+    -SafeModeAdministratorPassword $(ConvertTo-SecureString $env:DOMAIN_PASSWORD -AsPlainText -Force) `
     -CreateDnsDelegation:$false `
     -DatabasePath "C:\Windows\NTDS" `
     -DomainMode "WinThreshold" `

@@ -13,6 +13,7 @@ locals {
     "BUCKET_NAME" : var.splunk_config_bucket,
     "AWS_ACCOUNT" : data.aws_caller_identity.current.account_id,
     "SPLUNK_PASSWORD": random_password.splunk_admin_password.result,
+    "DOMAIN_PASSWORD": random_password.domain_admin_password.result,
     "DOMAIN": var.domain_name
   }
 

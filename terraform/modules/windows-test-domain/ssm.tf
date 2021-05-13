@@ -30,3 +30,18 @@ resource "aws_ssm_parameter" "windows_wec_splunk_password" {
   overwrite   = true
   tags = merge(local.tags, { "Name" : "/windows-sandbox/wec/splunk/password" })
 }
+
+resource "random_password" "domain_admin_password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
+}
+
+resource "aws_ssm_parameter" "windows_domain_admin_password" {
+  name        = "/windows-sandbox/domain/admin/password"
+  description = "Password for local windows domain admin password"
+  type        = "SecureString"
+  value       = random_password.domain_admin_password.result
+  overwrite   = true
+  tags = merge(local.tags, { "Name" : "/windows-sandbox/domain/admin/password" })
+}

@@ -12,7 +12,7 @@ Write-Output "
                |_|                                                                                               
 "  
 
-Function Import-LOTR()
+Function Import-Users()
 
 
 {
@@ -21,7 +21,7 @@ Import-Module activedirectory
   
 #Update the path to where the .csv file is stored. 
 
-$ADUsers = Import-csv C:\mordor\environment\shire\aws\scripts\DC\shire_users.csv
+$ADUsers = Import-csv C:\mordor\environment\shire\aws\scripts\DC\domain_users.csv
 
 foreach ($User in $ADUsers)
 
@@ -29,7 +29,7 @@ foreach ($User in $ADUsers)
     #Read in data from .csv and assign it to the variable. This is done to import attributes in the New-ADUser.
         
     $username     = $User.username
-    $password     = $User.password
+    $password     = $env:DOMAIN_PASSWORD
     $firstname     = $User.firstname
     $lastname     = $User.lastname
     $ou         = $User.ou 
@@ -73,6 +73,6 @@ foreach ($User in $ADUsers)
 	    }
          Write-Output "$username has been added to the domain and added to the $identity group"
     }
-setspn -a glamdring/$env:domain shire\gandalf
+    # setspn -a glamdring/$env:domain shire\gandalf
 }
-Import-LOTR
+Import-Users
