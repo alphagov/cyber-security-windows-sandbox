@@ -45,6 +45,7 @@ else
     -LogPath "C:\Windows\NTDS" `
     -NoRebootOnCompletion:$true `
     -SysvolPath "C:\Windows\SYSVOL" `
+    -SkipPreChecks $true `
     -Force:$true
 
     Write-Host "DC setup complete"
