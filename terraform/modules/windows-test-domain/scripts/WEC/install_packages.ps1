@@ -1,8 +1,8 @@
 #!/usr/bin/env pwsh
 
-$BUCKET_NAME=$env:splunk_config_bucket
-$FORWARDER=$env:splunk_forwarder_name
-$AWS_ACCOUNT=$env:s3_host_account_id
+$BUCKET_NAME=$env:BUCKET_NAME
+$FORWARDER=$env:FORWARDER
+$AWS_ACCOUNT=$env:AWS_ACCOUNT
 
 function Get-RoleArn {
   param([string]$forwarder, [string]$account)
@@ -80,6 +80,8 @@ Try {
 Try {
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   Read-S3Object -Credential $ROLE_SESSION -KeyPrefix packages -BucketName $BUCKET_NAME -Folder $PSScriptRoot/packages -ErrorAction Stop
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+  Read-S3Object -Credential $ROLE_SESSION -KeyPrefix scripts -BucketName $BUCKET_NAME -Folder $PSScriptRoot/scripts -ErrorAction Stop
 } Catch {
   Write-Host "Failed to read S3 bucket"
   exit 1
@@ -127,7 +129,7 @@ ForEach ($package in $METADATA_CSV){
           "/i"
           "$PSScriptRoot\packages\$file"
           "AGREETOLICENSE=Yes"
-          "SPLUNKPASSWORD=$env:splunk_password"
+          "SPLUNKPASSWORD=$env:SPLUNK_PASSWORD"
           "/quiet"
           "/passive"
           "/qn"
@@ -141,4 +143,7 @@ ForEach ($package in $METADATA_CSV){
 
 Write-Host "Cleaning up"
 Remove-Item -Recurse -Force $PSScriptRoot/packages
+
+Set the env var name the get-and-update script expects
+$PSScriptRoot\scripts\get-and-update.ps1
 

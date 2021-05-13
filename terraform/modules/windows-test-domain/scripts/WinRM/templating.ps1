@@ -1,5 +1,5 @@
 $matchString = '{{domain}}'
-$replaceString = $env:domain
+$replaceString = $env:DOMAIN
 $files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -filter *.xml -Recurse
 foreach ($file in $files) {
     $matchFound = $false
