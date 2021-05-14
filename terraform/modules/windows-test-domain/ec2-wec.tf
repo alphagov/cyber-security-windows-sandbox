@@ -39,7 +39,7 @@ resource "aws_instance" "wec" {
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_system_enableula_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\registry_terminal_server_sacl.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WinRM\\set_dns_resolvers.ps1",
-      "powershell Restart-Computer -Force",
+      "powershell Restart-Computer -Force"
     ]
 
   }
@@ -67,14 +67,14 @@ resource "null_resource" "wec_rename" {
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\rename_wec_computer.ps1",
-      "powershell Restart-Computer -Force",
+      "powershell Restart-Computer -Force"
     ]
 
   }
 
 }
 
-resource "null_resource" "wec_configure" {
+resource "null_resource" "wec_join_domain" {
   depends_on = [null_resource.wec_rename]
   provisioner "remote-exec" {
     connection {
@@ -88,9 +88,31 @@ resource "null_resource" "wec_configure" {
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
-      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\configure_wec.ps1",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\join_domain.ps1",
       "powershell gpupdate /Force",
-      "powershell Restart-Computer -Force",
+      "powershell Restart-Computer -Force"
+    ]
+
+  }
+
+}
+
+resource "null_resource" "wec_configure" {
+  depends_on = [null_resource.wec_join_domain]
+  provisioner "remote-exec" {
+    connection {
+      host        = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
+      type        = "winrm"
+      user        = "Administrator"
+      password    = rsadecrypt(aws_instance.wec.password_data,file(var.private_key_path))
+      https       = true
+      insecure    = true
+      port        = 5986
+    }
+    inline = [
+      "powershell Set-ExecutionPolicy Unrestricted -Force",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\configure_wec.ps1",
+      "powershell Restart-Computer -Force"
     ]
 
   }
@@ -113,7 +135,7 @@ resource "null_resource" "wec_forward_to_splunk" {
       "powershell Set-ExecutionPolicy Unrestricted -Force",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\install_packages.ps1",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",
-      "powershell Restart-Computer -Force",
+      "powershell Restart-Computer -Force"
     ]
 
   }
