@@ -4,7 +4,7 @@ This process is going to provision from a Pre-Built AMI.
 This AMI already has the WEC subscriptions and WEC service deployed.
 */
 resource "aws_instance" "wec" {
-  depends_on = [aws_instance.dc]
+  depends_on = [null_resource.dc_setup_domain]
   instance_type = "t2.large"
   ami = data.aws_ami.windows_server_2016_base.image_id
 
@@ -14,7 +14,7 @@ resource "aws_instance" "wec" {
 
   subnet_id              = aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.windows.id]
-  private_ip             = "172.18.39.102"
+  private_ip             = local.wec_private_ip
 
   iam_instance_profile   = aws_iam_instance_profile.wec_instance_profile.name
 

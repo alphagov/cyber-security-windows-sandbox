@@ -7,6 +7,9 @@ locals {
     SvcCodeURL    = "https://github.com/alphagov/cyber-security-windows-sandbox"
   }
 
+  dc_private_ip = "172.18.39.5"
+  wec_private_ip = "172.18.39.102"
+
   env_variables = {
     "ENVIRONMENT" : var.environment,
     "FORWARDER" : var.splunk_forwarder_name,
@@ -15,6 +18,7 @@ locals {
     "SPLUNK_PASSWORD": random_password.splunk_admin_password.result,
     "DOMAIN_PASSWORD": random_password.domain_admin_password.result,
     "DOMAIN": var.domain_name
+    "DOMAIN_CONTROLLER_IP": local.dc_private_ip
   }
 
   user_data_ps1 = file("${path.module}/scripts/WinRM/user_data.ps1")
