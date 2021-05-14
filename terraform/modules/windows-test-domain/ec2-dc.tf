@@ -7,9 +7,9 @@ resource "aws_instance" "dc" {
   instance_type = "t2.medium"
   ami = data.aws_ami.windows_server_2016_base.image_id
 
-  tags = {
-    Name = "HFDC1.${var.domain_name}"
-  }
+  tags = merge(local.tags, {
+    Name = "WSDC01.${var.domain_name}"
+  })
 
   subnet_id              = aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.windows.id]

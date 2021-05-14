@@ -8,9 +8,9 @@ resource "aws_instance" "wec" {
   instance_type = "t2.large"
   ami = data.aws_ami.windows_server_2016_base.image_id
 
-  tags = {
-    Name = "WECServer.${var.domain_name}"
-  }
+  tags = merge(local.tags, {
+    Name = "WSWEC01.${var.domain_name}"
+  })
 
   subnet_id              = aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.windows.id]
@@ -88,6 +88,7 @@ resource "null_resource" "wec_configure" {
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\configure_wec.ps1",
+      "powershell gpupdate /Force",
       "powershell Restart-Computer -Force",
     ]
 
