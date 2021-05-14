@@ -3,7 +3,7 @@
         <GroupPolicyExtension bkp:ID="{35378EAC-683F-11D2-A89A-00C04FBBCFA2}" bkp:DescName="Registry">
             
             
-            <FSObjectFile bkp:Path="%GPO_FSPATH%\Adm\*.*" bkp:SourceExpandedPath="\\HFDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Adm\*.*"/>
+            <FSObjectFile bkp:Path="%GPO_FSPATH%\Adm\*.*" bkp:SourceExpandedPath="\\WSDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Adm\*.*"/>
         </GroupPolicyExtension>
         
         
@@ -14,5 +14,5 @@
         
         
         
-    <GroupPolicyExtension bkp:ID="{F15C46CD-82A0-4C2D-A210-5D0D3182A418}" bkp:DescName="Unknown Extension"><FSObjectDir bkp:Path="%GPO_MACH_FSPATH%\Preferences" bkp:SourceExpandedPath="\\HFDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Machine\Preferences" bkp:Location="DomainSysvol\GPO\Machine\Preferences"/><FSObjectDir bkp:Path="%GPO_MACH_FSPATH%\Preferences\Registry" bkp:SourceExpandedPath="\\HFDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Machine\Preferences\Registry" bkp:Location="DomainSysvol\GPO\Machine\Preferences\Registry"/><FSObjectFile bkp:Path="%GPO_MACH_FSPATH%\Preferences\Registry\Registry.xml" bkp:SourceExpandedPath="\\HFDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Machine\Preferences\Registry\Registry.xml" bkp:Location="DomainSysvol\GPO\Machine\Preferences\Registry\Registry.xml"/></GroupPolicyExtension></GroupPolicyObject>
+    <GroupPolicyExtension bkp:ID="{F15C46CD-82A0-4C2D-A210-5D0D3182A418}" bkp:DescName="Unknown Extension"><FSObjectDir bkp:Path="%GPO_MACH_FSPATH%\Preferences" bkp:SourceExpandedPath="\\WSDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Machine\Preferences" bkp:Location="DomainSysvol\GPO\Machine\Preferences"/><FSObjectDir bkp:Path="%GPO_MACH_FSPATH%\Preferences\Registry" bkp:SourceExpandedPath="\\WSDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Machine\Preferences\Registry" bkp:Location="DomainSysvol\GPO\Machine\Preferences\Registry"/><FSObjectFile bkp:Path="%GPO_MACH_FSPATH%\Preferences\Registry\Registry.xml" bkp:SourceExpandedPath="\\WSDC01.{{domain}}\sysvol\{{domain}}\Policies\{3be97871-8ed0-436e-b6f1-ef45a14febc2}\Machine\Preferences\Registry\Registry.xml" bkp:Location="DomainSysvol\GPO\Machine\Preferences\Registry\Registry.xml"/></GroupPolicyExtension></GroupPolicyObject>
 </GroupPolicyBackupScheme>
