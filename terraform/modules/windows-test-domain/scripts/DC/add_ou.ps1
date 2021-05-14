@@ -1,2 +1,2 @@
-New-ADOrganizationalUnit -Name "Workstations" -Path "DC=SHIRE,DC=COM"
-New-ADOrganizationalUnit -Name "Servers" -Path "DC=SHIRE,DC=COM"
+New-ADOrganizationalUnit -Name "Workstations" -Path "DC=SHIRE,DC=COM" -Server $env:DOMAIN_CONTROLLER_IP
+New-ADOrganizationalUnit -Name "Servers" -Path "DC=SHIRE,DC=COM" -Server $env:DOMAIN_CONTROLLER_IP
