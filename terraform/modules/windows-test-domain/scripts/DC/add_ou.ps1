@@ -1,2 +1,2 @@
-New-ADOrganizationalUnit -Name "Workstations" -Path "DC=SHIRE,DC=COM" -Server localhost
-New-ADOrganizationalUnit -Name "Servers" -Path "DC=SHIRE,DC=COM" -Server localhost
+New-ADOrganizationalUnit -Name "Workstations" -Path "{{paths}}" -Server localhost
+New-ADOrganizationalUnit -Name "Servers" -Path "{{paths}}" -Server localhost

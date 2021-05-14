@@ -8,7 +8,7 @@
 # https://docs.microsoft.com/en-us/biztalk/technical-guides/settings-that-can-be-modified-to-improve-network-performance
 
 # Stand-alone service instead of shared
-svcconfig wecsvc type=own
+sc config wecsvc type=own
 
 # ********* Setting WinRM Configs for WEC ***********
 winrm quickconfig -q
