@@ -26,7 +26,7 @@ Function Import-Users() {
 
         #Runs check against AD to verify User doesn't already exist inside of Active Directory
 
-        if (Get-ADUser -F {SamAccountName -eq $Username -Server $env:DOMAIN_CONTROLLER_IP }) {
+        if (Get-ADUser -F {SamAccountName -eq $Username -Server localhost }) {
              Write-Warning "$Username already exists."
         }
 
@@ -37,7 +37,7 @@ Function Import-Users() {
             #Update to UserPrincipalName to match personal domain. Ex: If domain is: example.com. Should read as - $Username@example.com
 
             New-ADUser `
-                -Server $env:DOMAIN_CONTROLLER_IP `
+                -Server localhost `
                 -SamAccountName $Username `
                 -UserPrincipalName "$Username@$env:domain" `
                 -Name "$firstname $lastname" `
@@ -50,7 +50,7 @@ Function Import-Users() {
                 -AccountPassword (convertto-securestring $password -AsPlainText -Force) -PasswordNeverExpires $True
 
             Add-ADGroupMember `
-                -Server $env:DOMAIN_CONTROLLER_IP `
+                -Server localhost `
                 -Members $username `
                 -Identity $identity `
 	    }

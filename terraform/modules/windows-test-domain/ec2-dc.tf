@@ -104,6 +104,7 @@ resource "null_resource" "dc_setup_domain" {
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
+      "powershell Get-ADDomainController -Discover -Service ADWS",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\add_ou.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\import_users.ps1",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",

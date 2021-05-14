@@ -4,4 +4,4 @@
 #Resources -
 #Microsoft-Docs:https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/rename-computer?view=powershell-6
 #Microsoft-Docs: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-credential?view=powershell-6
-Rename-computer -ComputerName localhost -NewName WSDC01
+Rename-computer -ComputerName localhost -NewName WSDC01.$env:DOMAIN
