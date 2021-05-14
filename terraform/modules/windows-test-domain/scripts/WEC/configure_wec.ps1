@@ -62,13 +62,13 @@ wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scr
 wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\wmi-activity.xml
 
 # ********** Additional Tunning ***************
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "BufferSize" -Type "DWORD" -Value "2048"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "FlushTimer" -Type "DWORD" -Value "0"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MaximumBuffers" -Type "DWORD" -Value "8192"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MinimumBuffers" -Type "DWORD" -Value "0"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "BufferSize" -Type "DWORD" -Value "2048"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "FlushTimer" -Type "DWORD" -Value "0"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MaximumBuffers" -Type "DWORD" -Value "8192"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MinimumBuffers" -Type "DWORD" -Value "0"
 
 # The TcpTimedWaitDelay value determines the length of time that a connection stays in the TIME_WAIT state when being closed
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "TcpTimedWaitDelay" -Type "Dword" -Value "30"
+#New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "TcpTimedWaitDelay" -Type "Dword" -Value "30"
 
 # Configure Event Collector
 wecutil qc -quiet
