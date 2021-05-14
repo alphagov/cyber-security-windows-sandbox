@@ -20,7 +20,6 @@ Function Import-Users() {
         $lastname     = $User.lastname
         $ou         = $User.ou
         $identity   = $User.identity
-        $password = $User.Password
         $province = $User.province
 
 
