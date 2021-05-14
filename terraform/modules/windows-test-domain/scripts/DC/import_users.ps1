@@ -26,7 +26,7 @@ Function Import-Users() {
 
         #Runs check against AD to verify User doesn't already exist inside of Active Directory
 
-        if (Get-ADUser -F {SamAccountName -eq $Username -Server localhost }) {
+        if (Get-ADUser -Server localhost -F {SamAccountName -eq $Username }) {
              Write-Warning "$Username already exists."
         }
 
