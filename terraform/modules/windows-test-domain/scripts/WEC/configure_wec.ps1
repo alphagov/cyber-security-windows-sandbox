@@ -72,3 +72,6 @@ wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scr
 
 # Configure Event Collector
 wecutil qc -quiet
+
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -RemoteAddress 172.18.39.0/24 -Action Allow
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -RemoteAddress 172.18.39.0/24 -Action Allow
