@@ -32,6 +32,8 @@ $profile_set_env_vars = @"
 %{for var_name, value in local.env_variables}
 `$env:${var_name} = `"${value}`"
 %{endfor}
+
+`$env:PATHS = `$env:DOMAIN.split(`".`") -replace `"^`", `"DC=`" -join `",`"
 "@
 
 Try {

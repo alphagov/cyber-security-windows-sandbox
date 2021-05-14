@@ -2,7 +2,7 @@ $matchDomain = '{{domain}}'
 $replaceDomain = $env:DOMAIN
 
 $matchPaths = '{{paths}}'
-$replacePaths = $env:DOMAIN.split(".") -replace "^", "DC=" -join ","
+$replacePaths = $env:PATHS
 
 $files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -filter *.xml -Recurse
 foreach ($file in $files) {
