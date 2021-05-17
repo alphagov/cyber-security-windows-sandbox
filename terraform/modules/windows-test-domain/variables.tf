@@ -18,9 +18,15 @@ variable "environment" {
 //  default     = "~/.aws/credentials"
 //}
 //
+
+variable "ssh_path" {
+  description = "Directory to create ssh key into"
+  default     = "~/.ssh"
+}
+
 variable "public_key_name" {
   description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
-  default     = "linux"
+  default     = "windows_sandbox_ssh_key"
 }
 
 variable "public_key_path" {

@@ -12,7 +12,7 @@ variable "environment" {
 
 variable "public_key_name" {
   description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
-  default     = "win-test-ssh"
+  default     = "windows_sandbox_ssh_key"
 }
 
 variable "public_key_path" {
