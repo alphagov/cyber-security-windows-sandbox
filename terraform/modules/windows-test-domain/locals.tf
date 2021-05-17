@@ -7,13 +7,18 @@ locals {
     SvcCodeURL    = "https://github.com/alphagov/cyber-security-windows-sandbox"
   }
 
+  dc_private_ip = "172.18.39.5"
+  wec_private_ip = "172.18.39.102"
+
   env_variables = {
     "ENVIRONMENT" : var.environment,
     "FORWARDER" : var.splunk_forwarder_name,
     "BUCKET_NAME" : var.splunk_config_bucket,
     "AWS_ACCOUNT" : data.aws_caller_identity.current.account_id,
     "SPLUNK_PASSWORD": random_password.splunk_admin_password.result,
+    "DOMAIN_PASSWORD": random_password.domain_admin_password.result,
     "DOMAIN": var.domain_name
+    "DOMAIN_CONTROLLER_IP": local.dc_private_ip
   }
 
   user_data_ps1 = file("${path.module}/scripts/WinRM/user_data.ps1")
@@ -27,6 +32,8 @@ $profile_set_env_vars = @"
 %{for var_name, value in local.env_variables}
 `$env:${var_name} = `"${value}`"
 %{endfor}
+
+`$env:PATHS = `$env:DOMAIN.split(`".`") -replace `"^`", `"DC=`" -join `",`"
 "@
 
 Try {

@@ -8,7 +8,7 @@
 # https://docs.microsoft.com/en-us/biztalk/technical-guides/settings-that-can-be-modified-to-improve-network-performance
 
 # Stand-alone service instead of shared
-scconfig wecsvc type=own
+sc config wecsvc type=own
 
 # ********* Setting WinRM Configs for WEC ***********
 winrm quickconfig -q
@@ -49,28 +49,29 @@ $s.Change($null, $null, 16)
 Start-Service wecsvc
 
 # ******** Importing WEF subscriptions *******
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\bits-client.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\directory-service.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\dns-client.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\firewall-advanced-security.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\powershell.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\powershell-operational.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\security.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\sysmon.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\system.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\terminal-services.xml
-wecutil cs C:\mordor\environment\shire\aws\scripts\WEC\wef-subscriptions\wmi-activity.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\bits-client.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\directory-service.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\dns-client.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\firewall-advanced-security.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\powershell.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\powershell-operational.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\security.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\sysmon.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\system.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\terminal-services.xml
+wecutil cs C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts\WEC\wef-subscriptions\wmi-activity.xml
 
 # ********** Additional Tunning ***************
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "BufferSize" -Type "DWORD" -Value "2048"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "FlushTimer" -Type "DWORD" -Value "0"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MaximumBuffers" -Type "DWORD" -Value "8192"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MinimumBuffers" -Type "DWORD" -Value "0"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "BufferSize" -Type "DWORD" -Value "2048"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "FlushTimer" -Type "DWORD" -Value "0"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MaximumBuffers" -Type "DWORD" -Value "8192"
+#Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-ForwardedEvents" -Name "MinimumBuffers" -Type "DWORD" -Value "0"
 
 # The TcpTimedWaitDelay value determines the length of time that a connection stays in the TIME_WAIT state when being closed
-New-ItemProperty �Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" �Name "TcpTimedWaitDelay" �Type "Dword" �Value "30"
+#New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "TcpTimedWaitDelay" -Type "Dword" -Value "30"
 
 # Configure Event Collector
 wecutil qc -quiet
 
-Restart-Computer -Force
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -RemoteAddress 172.18.39.0/24 -Action Allow
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -RemoteAddress 172.18.39.0/24 -Action Allow

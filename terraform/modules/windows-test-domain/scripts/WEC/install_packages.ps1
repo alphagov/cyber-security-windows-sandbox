@@ -152,5 +152,5 @@ Try {
 
 Write-Host "Cleaning up"
 Remove-Item -Recurse -Force $PSScriptRoot/packages
-# Remove-Item -Recurse -Force $PSScriptRoot/scripts
+
 

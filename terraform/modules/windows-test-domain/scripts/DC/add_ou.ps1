@@ -1,2 +1,2 @@
-New-ADOrganizationalUnit -Name "Workstations" -Path "DC=SHIRE,DC=COM"
-New-ADOrganizationalUnit -Name "Servers" -Path "DC=SHIRE,DC=COM"
+New-ADOrganizationalUnit -Name "Workstations" -Path $env:PATHS -Server localhost
+New-ADOrganizationalUnit -Name "Servers" -Path $env:PATHS -Server localhost

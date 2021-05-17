@@ -133,4 +133,11 @@ resource "aws_security_group" "windows" {
     protocol    = "ALL"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "ALL"
+    cidr_blocks = ["172.18.39.0/24"]
+  }
 }

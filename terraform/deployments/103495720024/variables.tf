@@ -30,7 +30,7 @@ variable "private_key_path" {
 variable "domain_name" {
   description = ""
   type        = string
-  default     = "shire.com"
+  default     = "cdio-windows-sandbox-staging.com"
 }
 variable "splunk_config_bucket" {
   description = "Name of the target bucket for retrieving config."

@@ -1,10 +1,17 @@
-$matchString = '{{domain}}'
-$replaceString = $env:DOMAIN
-$files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -filter *.xml -Recurse
+$matchDomain = '{{domain}}'
+$replaceDomain = $env:DOMAIN
+
+$matchPaths = '{{paths}}'
+$replacePaths = $env:PATHS
+
+$files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -Include *.xml, *.csv -Recurse
 foreach ($file in $files) {
     $matchFound = $false
     $output = switch -regex -file $file.fullname {
-        $matchString { $_ -replace $matchString,$replaceString
+        $matchDomain { $_ -replace $matchDomain,$replaceDomain
+                       $matchFound = $true
+        }
+        $matchPaths { $_ -replace $matchPaths,$replacePaths
                        $matchFound = $true
         }
         default { $_ }
