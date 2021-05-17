@@ -4,7 +4,6 @@ This process is going to provision from a Pre-Built AMI.
 This AMI already has the forest, GPOs, and Users deployed.
 */
 resource "aws_instance" "dc" {
-  depends_on    = [null_resource.ssh_create_keypair]
   instance_type = "t2.medium"
   ami           = data.aws_ami.windows_server_2016_base.image_id
 
@@ -26,7 +25,7 @@ resource "aws_instance" "dc" {
       host     = coalesce(self.public_ip, self.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(self.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(self.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -54,7 +53,7 @@ resource "null_resource" "dc_rename" {
       host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.dc.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -76,7 +75,7 @@ resource "null_resource" "dc_deploy_forest" {
       host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.dc.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -98,7 +97,7 @@ resource "null_resource" "dc_setup_domain" {
       host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.dc.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986

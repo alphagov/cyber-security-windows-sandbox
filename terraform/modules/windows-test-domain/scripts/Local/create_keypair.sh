@@ -12,4 +12,5 @@ else
   openssl genrsa -out $private 2048
   chmod 400 $private
   ssh-keygen -y -f $private > $public
+  echo $private
 fi

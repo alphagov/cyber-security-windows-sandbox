@@ -4,7 +4,7 @@ This process is going to provision from a Pre-Built AMI.
 This AMI already has the WEC subscriptions and WEC service deployed.
 */
 resource "aws_instance" "wec" {
-  depends_on    = [null_resource.ssh_create_keypair, null_resource.dc_setup_domain]
+  depends_on    = [null_resource.dc_setup_domain]
   instance_type = "t2.large"
   ami           = data.aws_ami.windows_server_2016_base.image_id
 
@@ -28,7 +28,7 @@ resource "aws_instance" "wec" {
       host     = coalesce(self.public_ip, self.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(self.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(self.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -59,7 +59,7 @@ resource "null_resource" "wec_rename" {
       host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.wec.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.wec.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -81,7 +81,7 @@ resource "null_resource" "wec_join_domain" {
       host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.wec.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.wec.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -104,7 +104,7 @@ resource "null_resource" "wec_configure" {
       host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.wec.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.wec.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
@@ -126,7 +126,7 @@ resource "null_resource" "wec_forward_to_splunk" {
       host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
       type     = "winrm"
       user     = "Administrator"
-      password = rsadecrypt(aws_instance.wec.password_data, lookup(local.keypair, "private"))
+      password = rsadecrypt(aws_instance.wec.password_data, file(var.private_key_path))
       https    = true
       insecure = true
       port     = 5986
