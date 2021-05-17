@@ -28,7 +28,7 @@ variable "public_key_name" {
   description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
   default     = "windows_sandbox_ssh_key"
 }
-
+/*
 variable "public_key_path" {
   description = "Path to the public key to be loaded into the helk authorized_keys file"
   type        = string
@@ -40,7 +40,7 @@ variable "private_key_path" {
   type        = string
   default     = "~/.ssh/linux"
 }
-
+*/
 variable "domain_name" {
   description = ""
   type        = string

@@ -7,7 +7,12 @@ output "wec_public_ip" {
 output "user_data" {
   value = local.user_data
 }
-
+output "private_key_file" {
+  value = "${var.ssh_path}/${var.public_key_name}"
+}
+output "public_key_file" {
+  value = "${var.ssh_path}/${var.public_key_name}.pub"
+}
 
 //output "RTO_public_ip" {
 //  value = aws_instance.rto.public_ip

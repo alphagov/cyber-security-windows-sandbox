@@ -4,7 +4,7 @@ This process is going to provision from a Pre-Built AMI.
 These AMI's already has been domain joined prior to this process
 
 */
- # ACCT001 Build
+# ACCT001 Build
 //resource "aws_instance" "acct001" {
 //  instance_type = "t2.medium"
 //  ami = coalesce(data.aws_ami.windows_10.image_id)
@@ -49,7 +49,7 @@ These AMI's already has been domain joined prior to this process
 //}
 
 
- # HR001 Build
+# HR001 Build
 //resource "aws_instance" "hr001" {
 //  instance_type = "t2.medium"
 //  ami = coalesce(data.aws_ami.windows_10.image_id)
@@ -92,7 +92,7 @@ These AMI's already has been domain joined prior to this process
 //}
 
 
- # IT001 Build
+# IT001 Build
 //resource "aws_instance" "it001" {
 //  instance_type = "t2.medium"
 //  ami = coalesce(data.aws_ami.windows_10.image_id)

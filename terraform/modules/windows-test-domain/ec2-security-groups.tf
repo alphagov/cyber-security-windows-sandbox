@@ -2,7 +2,7 @@
 resource "aws_security_group" "linux" {
   name        = "linux_security_group"
   description = "Mordor: Security Group for the Linux Hosts"
-  vpc_id	= aws_vpc.default.id
+  vpc_id      = aws_vpc.default.id
 
   # SSH Access
   ingress {

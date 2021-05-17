@@ -29,7 +29,7 @@ resource "aws_vpc_dhcp_options" "default" {
   domain_name          = var.domain_name
   domain_name_servers  = concat([aws_instance.dc.private_ip], var.external_dns_servers)
   netbios_name_servers = [aws_instance.dc.private_ip]
- }
+}
 
 resource "aws_vpc_dhcp_options_association" "default" {
   vpc_id          = aws_vpc.default.id
