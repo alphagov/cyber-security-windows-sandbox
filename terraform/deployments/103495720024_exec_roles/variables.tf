@@ -15,3 +15,8 @@ variable "splunk_forwarder_name" {
   type        = string
   default     = "co-cdio-technology-official-it-platform-wec"
 }
+
+variable "ssh_key_name" {
+  description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
+  default     = "windows_sandbox_ssh_key"
+}
