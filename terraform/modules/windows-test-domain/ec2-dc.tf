@@ -5,7 +5,7 @@ This AMI already has the forest, GPOs, and Users deployed.
 */
 resource "aws_instance" "dc" {
   instance_type = "t2.medium"
-  ami = data.aws_ami.windows_server_2016_base.image_id
+  ami           = data.aws_ami.windows_server_2016_base.image_id
 
   tags = merge(local.tags, {
     Name = "WSDC01.${var.domain_name}"
@@ -15,20 +15,20 @@ resource "aws_instance" "dc" {
   vpc_security_group_ids = [aws_security_group.windows.id]
   private_ip             = local.dc_private_ip
 
-  key_name               = aws_key_pair.auth.key_name
-  get_password_data      = true
+  key_name          = aws_key_pair.auth.key_name
+  get_password_data = true
 
   user_data = local.user_data
 
   provisioner "remote-exec" {
     connection {
-      host        = coalesce(self.public_ip, self.private_ip)
-      type        = "winrm"
-      user        = "Administrator"
-      password    = rsadecrypt(self.password_data,file(var.private_key_path))
-      https       = true
-      insecure    = true
-      port        = 5986
+      host     = coalesce(self.public_ip, self.private_ip)
+      type     = "winrm"
+      user     = "Administrator"
+      password = rsadecrypt(self.password_data, file(var.private_key_path))
+      https    = true
+      insecure = true
+      port     = 5986
 
     }
     inline = [
@@ -50,13 +50,13 @@ resource "aws_instance" "dc" {
 resource "null_resource" "dc_rename" {
   provisioner "remote-exec" {
     connection {
-      host        = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
-      type        = "winrm"
-      user        = "Administrator"
-      password    = rsadecrypt(aws_instance.dc.password_data,file(var.private_key_path))
-      https       = true
-      insecure    = true
-      port        = 5986
+      host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
+      type     = "winrm"
+      user     = "Administrator"
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
+      https    = true
+      insecure = true
+      port     = 5986
 
     }
     inline = [
@@ -72,13 +72,13 @@ resource "null_resource" "dc_deploy_forest" {
   depends_on = [null_resource.dc_rename]
   provisioner "remote-exec" {
     connection {
-      host        = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
-      type        = "winrm"
-      user        = "Administrator"
-      password    = rsadecrypt(aws_instance.dc.password_data,file(var.private_key_path))
-      https       = true
-      insecure    = true
-      port        = 5986
+      host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
+      type     = "winrm"
+      user     = "Administrator"
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
+      https    = true
+      insecure = true
+      port     = 5986
 
     }
     inline = [
@@ -94,13 +94,13 @@ resource "null_resource" "dc_setup_domain" {
   depends_on = [null_resource.dc_deploy_forest]
   provisioner "remote-exec" {
     connection {
-      host        = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
-      type        = "winrm"
-      user        = "Administrator"
-      password    = rsadecrypt(aws_instance.dc.password_data,file(var.private_key_path))
-      https       = true
-      insecure    = true
-      port        = 5986
+      host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
+      type     = "winrm"
+      user     = "Administrator"
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
+      https    = true
+      insecure = true
+      port     = 5986
 
     }
     inline = [

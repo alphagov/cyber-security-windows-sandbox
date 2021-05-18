@@ -3,24 +3,9 @@ variable "environment" {
   description = "One of [ production | staging | demo ]"
 }
 
-//variable "profile" {
-//  default = "terraform"
-//}
-
-//variable "availability_zone" {
-//  description = "https://www.terraform.io/docs/providers/aws/d/availability_zone.html"
-//  default     = ""
-//}
-
-//variable "shared_credentials_file" {
-//  description = "Path to your AWS credentials file"
-//  type        = string
-//  default     = "~/.aws/credentials"
-//}
-//
 variable "public_key_name" {
   description = "A name for AWS Keypair to use to auth to helk. Can be anything you specify."
-  default     = "linux"
+  default     = "windows_sandbox_ssh_key"
 }
 
 variable "public_key_path" {

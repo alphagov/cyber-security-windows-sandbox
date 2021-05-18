@@ -8,7 +8,6 @@ output "user_data" {
   value = local.user_data
 }
 
-
 //output "RTO_public_ip" {
 //  value = aws_instance.rto.public_ip
 //}

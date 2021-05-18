@@ -7,7 +7,7 @@ data "aws_region" "current" {}
 data "aws_ami" "windows_server_2016_base" {
   owners = ["amazon"]
   filter {
-    name = "name"
+    name   = "name"
     values = ["Windows_Server-2016-English-Core-Base-2021.04.14"]
   }
 }
