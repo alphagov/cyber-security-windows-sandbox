@@ -9,7 +9,7 @@ resource "aws_security_group" "linux" {
     from_port   = 22
     to_port     = 22
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
   # Apache Guacamole Access
@@ -17,7 +17,7 @@ resource "aws_security_group" "linux" {
     from_port   = 8443
     to_port     = 8443
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
   # Apache Spark Access
@@ -25,7 +25,7 @@ resource "aws_security_group" "linux" {
     from_port   = 8088
     to_port     = 8088
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
   # Kibana Access
@@ -33,7 +33,7 @@ resource "aws_security_group" "linux" {
     from_port   = 443
     to_port     = 443
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
   # Covenant
@@ -41,7 +41,7 @@ resource "aws_security_group" "linux" {
     from_port   = 7443
     to_port     = 7443
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
   # private subnet
   ingress {
@@ -84,7 +84,7 @@ resource "aws_security_group" "windows" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
   # WinRM
@@ -92,7 +92,7 @@ resource "aws_security_group" "windows" {
     from_port   = 5985
     to_port     = 5986
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
   # TLS
@@ -100,7 +100,7 @@ resource "aws_security_group" "windows" {
     from_port   = 443
     to_port     = 443
     protocol    = "TCP"
-    cidr_blocks = var.ip_whitelist
+    cidr_blocks = var.ip_allowlist
   }
 
 
