@@ -4,7 +4,7 @@ $replaceDomain = $env:DOMAIN
 $matchPaths = '{{paths}}'
 $replacePaths = $env:PATHS
 
-$files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -Include *.xml, *.csv -Recurse
+$files = Get-ChildItem -Path 'C:\alphagov-windows-sandbox\terraform\modules\windows-test-domain\scripts' -Include *.xml, *.csv, *.pol -Recurse
 foreach ($file in $files) {
     $matchFound = $false
     $output = switch -regex -file $file.fullname {
