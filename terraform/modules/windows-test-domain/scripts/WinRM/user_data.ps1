@@ -66,9 +66,9 @@ Add-Content $profile $profile_append_content
 
 # Enable WinRM
 Write-Output "Disabling WinRM over HTTP..."
-Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
+# Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
 Disable-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC"
-Get-ChildItem WSMan:\Localhost\listener | Remove-Item -Recurse
+# Get-ChildItem WSMan:\Localhost\listener | Remove-Item -Recurse
 
 Write-Output "Configuring WinRM for HTTPS..."
 Set-Item -Path WSMan:\LocalHost\MaxTimeoutms -Value '1800000'

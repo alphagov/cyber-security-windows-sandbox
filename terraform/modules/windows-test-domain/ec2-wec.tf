@@ -4,7 +4,7 @@ This process is going to provision from a Pre-Built AMI.
 This AMI already has the WEC subscriptions and WEC service deployed.
 */
 resource "aws_instance" "wec" {
-  depends_on    = [null_resource.dc_setup_domain]
+  depends_on    = [null_resource.dc_import_gpos]
   instance_type = "t2.large"
   ami           = data.aws_ami.windows_server_2016_base.image_id
 

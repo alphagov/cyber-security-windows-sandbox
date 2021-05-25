@@ -111,6 +111,31 @@ resource "null_resource" "dc_setup_domain" {
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\import_users.ps1",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WinRM\\set_dns_resolvers.ps1",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",
+      "powershell Restart-Computer -Force",
+    ]
+
+  }
+}
+
+
+resource "null_resource" "dc_import_gpos" {
+  depends_on = [null_resource.dc_setup_domain]
+  provisioner "remote-exec" {
+    connection {
+      host     = coalesce(aws_instance.dc.public_ip, aws_instance.dc.private_ip)
+      type     = "winrm"
+      user     = "Administrator"
+      password = rsadecrypt(aws_instance.dc.password_data, file(var.private_key_path))
+      https    = true
+      insecure = true
+      port     = 5986
+
+    }
+    inline = [
+      "powershell Set-ExecutionPolicy Unrestricted -Force",
+      "powershell Start-Sleep -s 120",
+      "powershell Get-ADDomainController -Discover -Service ADWS",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\import_gpos.ps1",
       "powershell gpupdate /Force",
       "powershell Restart-Computer -Force",
     ]
