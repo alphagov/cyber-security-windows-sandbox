@@ -9,6 +9,7 @@ module "windows_test_domain_module" {
   public_key_path       = var.public_key_path
   private_key_path      = var.private_key_path
   domain_name           = var.domain_name
+  splunk_config_account = var.splunk_config_account
   splunk_config_bucket  = var.splunk_config_bucket
   splunk_forwarder_name = var.splunk_forwarder_name
 }

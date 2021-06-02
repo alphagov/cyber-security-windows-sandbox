@@ -32,6 +32,13 @@ variable "domain_name" {
   type        = string
   default     = "cdio-windows-sandbox-staging.com"
 }
+
+variable "splunk_config_account" {
+  description = "AWS account ID for the target bucket for retrieving config."
+  type        = string
+  default     = "103495720024"
+}
+
 variable "splunk_config_bucket" {
   description = "Name of the target bucket for retrieving config."
   type        = string
