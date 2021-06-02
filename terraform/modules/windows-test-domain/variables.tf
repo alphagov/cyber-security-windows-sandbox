@@ -38,6 +38,11 @@ variable "external_dns_servers" {
   default     = ["8.8.8.8"]
 }
 
+variable "splunk_config_account" {
+  description = "AWS account ID for the target bucket for retrieving config."
+  type        = string
+}
+
 variable "splunk_config_bucket" {
   description = "Name of the target bucket for retriving config."
   type        = string
