@@ -8,11 +8,12 @@
 # https://docs.microsoft.com/en-us/biztalk/technical-guides/settings-that-can-be-modified-to-improve-network-performance
 
 # Stand-alone service instead of shared
-sc config wecsvc type=own
+# This doesn't work for some reason type=own not recognised
+# sc config wecsvc type=own
 
 # ********* Setting WinRM Configs for WEC ***********
-winrm quickconfig -q
-winrm quickconfig -transport:https
+# winrm quickconfig -q
+# winrm quickconfig -transport:https
 
 winrm set winrm/config '@{MaxEnvelopeSizekb="500"}'
 winrm set winrm/config '@{MaxTimeoutms="60000"}'
