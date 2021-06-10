@@ -34,7 +34,7 @@ winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 winrm set winrm/config/client '@{AllowUnencrypted="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 winrm set winrm/config/client/auth '@{Basic="true"}'
-# winrm set winrm/config/listener?Address=*+Transport=HTTP '@{Port="5985"}'
+winrm set winrm/config/listener?Address=*+Transport=HTTP '@{Port="5985"}'
 winrm set winrm/config/listener?Address=*+Transport=HTTPS '@{Port="5986"}'
 
 

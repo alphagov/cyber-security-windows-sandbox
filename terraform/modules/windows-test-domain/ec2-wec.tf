@@ -98,7 +98,7 @@ resource "null_resource" "wec_join_domain" {
 }
 
 resource "null_resource" "wec_configure" {
-  depends_on = [null_resource.wec_join_domain]
+  depends_on = [null_resource.wec_forward_to_splunk]
   provisioner "remote-exec" {
     connection {
       host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
@@ -120,7 +120,7 @@ resource "null_resource" "wec_configure" {
 }
 
 resource "null_resource" "wec_forward_to_splunk" {
-  depends_on = [null_resource.wec_configure]
+  depends_on = [null_resource.wec_join_domain]
   provisioner "remote-exec" {
     connection {
       host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
