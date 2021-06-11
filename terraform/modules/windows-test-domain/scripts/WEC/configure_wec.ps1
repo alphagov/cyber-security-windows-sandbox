@@ -13,7 +13,7 @@
 
 # ********* Setting WinRM Configs for WEC ***********
 # winrm quickconfig -q
-# winrm quickconfig -transport:https
+# winrm quickconfig -transport:http
 
 winrm set winrm/config '@{MaxEnvelopeSizekb="500"}'
 winrm set winrm/config '@{MaxTimeoutms="60000"}'
