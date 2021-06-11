@@ -134,30 +134,9 @@ resource "null_resource" "wec_forward_to_splunk" {
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
       "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\install_packages.ps1",
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\generate_events.ps1",
       "powershell C:\\Set-AuditRule\\Set-AuditRule.ps1",
       "powershell Restart-Computer -Force"
-    ]
-
-  }
-
-}
-
-
-resource "null_resource" "wec_generate_events" {
-  depends_on = [null_resource.wec_forward_to_splunk]
-  provisioner "remote-exec" {
-    connection {
-      host     = coalesce(aws_instance.wec.public_ip, aws_instance.wec.private_ip)
-      type     = "winrm"
-      user     = "Administrator"
-      password = rsadecrypt(aws_instance.wec.password_data, file(var.private_key_path))
-      https    = true
-      insecure = true
-      port     = 5986
-    }
-    inline = [
-      "powershell Set-ExecutionPolicy Unrestricted -Force",
-      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\WEC\\generate_events.ps1",
     ]
 
   }

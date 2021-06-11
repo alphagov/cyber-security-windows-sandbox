@@ -133,7 +133,8 @@ resource "null_resource" "dc_generate_events" {
     }
     inline = [
       "powershell Set-ExecutionPolicy Unrestricted -Force",
-      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\generate_events.ps1"
+      "powershell C:\\alphagov-windows-sandbox\\terraform\\modules\\windows-test-domain\\scripts\\DC\\generate_events.ps1",
+      "powershell Restart-Computer -Force",
     ]
 
   }

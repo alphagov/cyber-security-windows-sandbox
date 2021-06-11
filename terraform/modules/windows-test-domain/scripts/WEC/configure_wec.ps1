@@ -8,11 +8,12 @@
 # https://docs.microsoft.com/en-us/biztalk/technical-guides/settings-that-can-be-modified-to-improve-network-performance
 
 # Stand-alone service instead of shared
-sc config wecsvc type=own
+# This doesn't work for some reason type=own not recognised
+# sc config wecsvc type=own
 
 # ********* Setting WinRM Configs for WEC ***********
-winrm quickconfig -q
-winrm quickconfig -transport:http
+# winrm quickconfig -q
+# winrm quickconfig -transport:https
 
 winrm set winrm/config '@{MaxEnvelopeSizekb="500"}'
 winrm set winrm/config '@{MaxTimeoutms="60000"}'
@@ -34,6 +35,7 @@ winrm set winrm/config/client '@{AllowUnencrypted="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 winrm set winrm/config/client/auth '@{Basic="true"}'
 winrm set winrm/config/listener?Address=*+Transport=HTTP '@{Port="5985"}'
+winrm set winrm/config/listener?Address=*+Transport=HTTPS '@{Port="5986"}'
 
 
 # ********** Updating ForwardedEvents log size *******
