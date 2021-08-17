@@ -8,7 +8,7 @@ data "aws_ami" "windows_server_2016_base" {
   owners = ["amazon"]
   filter {
     name   = "name"
-    values = ["Windows_Server-2016-English-Core-Base-2021.04.14"]
+    values = ["Windows_Server-2016-English-Core-Base-2021.06.09"]
   }
 }
 
